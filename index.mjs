@@ -39,7 +39,12 @@ const userNamesFromKey = _.flow(
 
 async function validateFile(filename) {
   const content = await fs.readFile(filename);
-  const { name, fingerprint } = yaml.safeLoad(content);
+  const { name, fingerprint: rawFingerprint } = yaml.safeLoad(content);
+  assert(
+    typeof rawFingerprint === 'string',
+    `fingerprint is not a string, note: keys must not start with 0x`,
+  )
+  const fingerprint = rawFingerprint.replace(/(^0x|\s)/g, '');
   assert(
     /[0-9a-fA-F]{40}/.test(fingerprint),
     `invalid fingerprint: ${fingerprint}`,
