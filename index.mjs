@@ -45,7 +45,7 @@ async function validateFile(filename) {
     `invalid fingerprint: ${fingerprint}`,
   );
   const options = { query: `0x${fingerprint}`};
-  const results = await Promise.all(_.map(hkp => hkp.lookup(options), hkps);
+  const results = await Promise.all(_.map(hkp => hkp.lookup(options), hkps));
   const rawKey = _.find(_.identity, results);
   assert(rawKey, `key does not exist on keyserver`);
   const userNames = userNamesFromKey(rawKey);
