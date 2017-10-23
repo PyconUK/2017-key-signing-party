@@ -26,9 +26,9 @@ Install
 
 Install an OpenPGP implementation:
 
-    * Mac: https://gpgtools.org/ `brew cask install gpgtools`
-    * Windows: https://www.gpg4win.org/ `choco install gpg4win`
-    * Linux (desktop): Should be already installed. You might need to upgrade
-      to a package called `gnupg2`
-    * Android: https://www.openkeychain.org/
-    * iOS: https://privacyapp.io/
+* Mac: https://gpgtools.org/ `brew cask install gpgtools`
+* Windows: https://www.gpg4win.org/ `choco install gpg4win`
+* Linux (desktop): Should be already installed. You might need to upgrade
+  to a package called `gnupg2`
+* Android: https://www.openkeychain.org/
+* iOS: https://privacyapp.io/
