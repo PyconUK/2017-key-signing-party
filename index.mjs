@@ -47,7 +47,7 @@ async function validateFile(filename) {
 
 async function go() {
   try {
-    const files = await globP('keys/*.y?(a)ml');
+    const files = await globP('keys/*');
     const keys = await Promise.all(_.map(validateFile, files));
     console.log(`checked ${keys.length} keys`);
   } catch (e) {
