@@ -9,7 +9,12 @@ import yaml from 'js-yaml';
 const { HKP, key, armor, packet, enums } = openpgp;
 const globP = util.promisify(glob);
 
-const hkp = new HKP('http://ha.pool.sks-keyservers.net');
+const hkps = _.map(u => new HKP(u), [
+  'http://ha.pool.sks-keyservers.net',
+  'http://pgp.mit.edu',
+  'http://keys.gnupg.net',
+  'http://keyserver.ubuntu.com',
+]);
 
 function readPacketList(rawKey) {
   const { data } = armor.decode(rawKey);
@@ -39,7 +44,9 @@ async function validateFile(filename) {
     /[0-9a-fA-F]{40}/.test(fingerprint),
     `invalid fingerprint: ${fingerprint}`,
   );
-  const rawKey = await hkp.lookup({ query: `0x${fingerprint}`});
+  const options = { query: `0x${fingerprint}`};
+  const results = await Promise.all(_.map(hkp => hkp.lookup(options), hkps));
+  const rawKey = _.find(_.identity, results);
   assert(rawKey, `key does not exist on keyserver`);
   const userNames = userNamesFromKey(rawKey);
   assert(_.includes(name, userNames), `key missing name: ${name}`);
