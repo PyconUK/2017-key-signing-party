@@ -1,0 +1,26 @@
+{
+  "name": "-2017-key-signing-party",
+  "version": "1.0.0",
+  "description": "check keys and ids",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-modules index.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pyconuk/2017-key-signing-party.git"
+  },
+  "author": "Thomas Grainger",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pyconuk/2017-key-signing-party/issues"
+  },
+  "homepage": "https://github.com/pyconuk/2017-key-signing-party#readme",
+  "dependencies": {
+    "glob": "^7.1.2",
+    "js-yaml": "^3.10.0",
+    "lodash": "^4.17.4",
+    "mz": "^2.7.0",
+    "openpgp": "^2.5.12"
+  }
+}
