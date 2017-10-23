@@ -5,7 +5,7 @@ Please create .yaml files with:
 # /keys/[username].yaml
 name: <your name as on your ID and PGP identity>
 fingerprint: <your PGP fingerprint>
-
+```
 
 OpenPGP key signing party
 =========================
