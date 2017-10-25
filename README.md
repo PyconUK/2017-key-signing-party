@@ -1,13 +1,15 @@
 # OpenPGP Key Signing Party
 
-This year we are resurrecting the PyConUK [OpenPGP Key-signing party](https://en.wikipedia.org/wiki/Key_signing_party)! This involves meeting people to verify their online cryptographic identities in person.
+This year we are resurrecting the [PyConUK OpenPGP Key-signing party](http://2017.pyconuk.org/sessions/workshops/key-signing-party/)! This involves meeting people to verify their online cryptographic identities in person. Read more on [the Wikipedia page about key-signing parties](https://en.wikipedia.org/wiki/Key_signing_party).
 
 It's a great way to meet new people and get started with personal cryptography. PGP is how investigative journalists can securely communicate with inside sources and whistle-blowers, however, this is not just for those who need it for their safety—it's also a useful thing to have for authenticating commits in open source projects.
 
 
 ### Joining the Party
 
-To get involved, just create a YAML file in the `keys` directory. The filename should match your GitHub username.
+The party will be on Friday the 27th October at 13:00 in Room C. To get involved you should submit your key beforehand.
+
+To do so, just create a YAML file in the `keys` directory. The filename should match your GitHub username.
 
 ```yaml
 # /keys/[username].yaml
