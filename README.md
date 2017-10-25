@@ -19,7 +19,7 @@ fingerprint: <your PGP fingerprint>
 
 Tips:
 
- - Your name must match the name in your ID.
+ - Your name must match the name in your ID (where possible).
  - Your name must match the name in your PGP Identity (if you don't know what this means don't worry, we can help you on the day).
  - Use your key _fingerprint_, not the key ID. The fingerprint is 40 characters long, but might have spaces or start with `0x`.
 
@@ -37,7 +37,7 @@ In order to verify everyone efficiently, we ask for participants to try to gener
 
 ### What to bring?
 
-* **Government issued ID**—Please note, for those with existing keys, that your ID must match exactly the identity used on the PGP key you wish to have verified e.g. if your key says Lizzy but your ID says Elizabeth, you will need to add a new identity to your key. If you do not know how to do this we can help you.
+* **Government issued ID**—Please note, for those with existing keys, that your ID should, if possible, exactly match the identity used on the PGP key you wish to have verified e.g. if your key says Lizzy but your ID says Elizabeth, you will need to add a new identity to your key. If you do not know how to do this we can help you. If this is not possible (your chosen name and legal name differ, or you do not posses such ID), don't worry you can still participate, but signing parties may choose to assign a lower validity rating to your key.
 
 * If you do not have a PGP key, please come with a device with an OpenPGP implementation installed (please see Install below) and we will talk you through how to get started. This does not need to be a laptop - there are available implementations for iOS and Android devices also.
 
