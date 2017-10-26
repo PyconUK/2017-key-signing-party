@@ -36,9 +36,9 @@ const userNamesFromKey = _.flow(
   readPacketList,
   Array.from,
   _.filter(v => v.tag === enums.packet.userid),
-  _.map(_.get('userid')),
+  _.map('userid'),
   _.flatMap(parse),
-  _.map(_.get('phrase')),
+  _.map('phrase'),
   _.compact,
 );
 
