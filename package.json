@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/pyconuk/2017-key-signing-party#readme",
   "dependencies": {
+    "address-rfc2822": "^2.0.1",
     "glob": "^7.1.2",
     "js-yaml": "^3.10.0",
     "lodash": "^4.17.4",
