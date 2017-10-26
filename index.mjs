@@ -5,6 +5,15 @@ import fs from 'mz/fs';
 import openpgp from 'openpgp';
 import glob from 'glob';
 import yaml from 'js-yaml';
+import addressRfc2822 from 'address-rfc2822';
+
+function parse(id) {
+  try {
+    return Array.from(addressRfc2822.parse(id));
+  } catch (e) {
+    return [];
+  }
+}
 
 const { HKP, key, armor, packet, enums } = openpgp;
 const globP = util.promisify(glob);
@@ -23,18 +32,14 @@ function readPacketList(rawKey) {
   return Array.from(packetList);
 }
 
-const useridRe = () => /([^(]*) ((\([^)]*\)) )?(<[^>]*>)/;
-
 const userNamesFromKey = _.flow(
   readPacketList,
   Array.from,
   _.filter(v => v.tag === enums.packet.userid),
-  _.map(({ userid }) => {
-    const match = useridRe().exec(userid);
-    assert(match, `invalid key comment: ${userid}`);
-    const [, name] = match;
-    return name;
-  }),
+  _.map(_.get('userid')),
+  _.flatMap(parse),
+  _.map(_.get('phrase')),
+  _.compact,
 );
 
 async function validateFile(filename) {
