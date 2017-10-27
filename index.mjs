@@ -81,7 +81,7 @@ async function validateFile(filename) {
   );
   const results = await Promise.all(_.map(lookup(fingerprint), hkps));
   const rawKey = _.find(_.identity, results);
-  assert(rawKey, `key does not exist on keyserver`);
+  assert(rawKey, `key for ${name} does not exist on keyserver`);
   const userNames = userNamesFromKey(rawKey);
   assert(_.includes(name, userNames), `key missing name: ${name}`);
 }
