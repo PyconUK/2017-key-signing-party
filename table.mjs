@@ -5,6 +5,26 @@ import glob from 'glob';
 import yaml from 'js-yaml';
 import markdownTable from 'markdown-table';
 
+const previousAttendees = new Set([
+  'Aaron Kirkbride',
+  'Adam Johnson',
+  'Amber Wright',
+  'Benjamin Elis Misell',
+  'Emmanuel Payet',
+  'Fabio Natali',
+  'Jonathan Burman',
+  'Luca Valentini',
+  'Mark Einon',
+  'Matthew Power',
+  'Michael Aquilina',
+  'Roger G. Coram',
+  'Samuel Reynolds',
+  'Thomas David Newport',
+  'Thomas Edwards',
+  'Vipin Ajayakumar',
+  'William Johnson',
+]);
+
 const globP = util.promisify(glob);
 
 const chunkStr = n => _.flow(_.chunk(n), _.map(_.join('')));
@@ -24,10 +44,10 @@ const formatFingerprint = _.flow(
 
 
 const toTable = _.flow(
+  _.reject(v => previousAttendees.has(v.name)),
   _.sortBy('name'),
   _.map(v => ([v.name, v.fingerprint, '', ''])),
 )
-
 
 async function row(filename) {
   const content = await fs.readFile(filename);
