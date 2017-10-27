@@ -42,9 +42,34 @@ const userNamesFromKey = _.flow(
   _.compact,
 );
 
+function parseYaml(content) {
+  try {
+    return yaml.safeLoad(content) || {};
+  } catch (e) {
+    return {};
+  }
+}
+
+const lookup = _.curry(async (fingerprint, hkp) => {
+  const options = { query: `0x${fingerprint}`};
+  try {
+    return await hkp.lookup(options);
+  } catch (e) {
+    return;
+  }
+})
+
+async function read(filename) {
+  try {
+    return await fs.readFile(filename);
+  } catch(e) {
+    return '';
+  }
+}
+
 async function validateFile(filename) {
-  const content = await fs.readFile(filename);
-  const { name, fingerprint: rawFingerprint } = yaml.safeLoad(content);
+  const content = await read(filename);
+  const { name, fingerprint: rawFingerprint } = parseYaml(content);
   assert(
     typeof rawFingerprint === 'string',
     `fingerprint is not a string, note: keys must not start with 0x`,
@@ -54,19 +79,46 @@ async function validateFile(filename) {
     /[0-9a-fA-F]{40}/.test(fingerprint),
     `invalid fingerprint: ${fingerprint}`,
   );
-  const options = { query: `0x${fingerprint}`};
-  const results = await Promise.all(_.map(hkp => hkp.lookup(options), hkps));
+  const results = await Promise.all(_.map(lookup(fingerprint), hkps));
   const rawKey = _.find(_.identity, results);
   assert(rawKey, `key does not exist on keyserver`);
   const userNames = userNamesFromKey(rawKey);
   assert(_.includes(name, userNames), `key missing name: ${name}`);
 }
 
+const filenameWhitelist = new Set(['package.json', 'package-lock.json']);
+
+async function checkNotKey(filename) {
+  if (filenameWhitelist.has(filename)) {
+    return;
+  }
+
+  const content = await read(filename);
+  const { name, fingerprint } = parseYaml(content);
+  assert(
+    !(name || fingerprint),
+    `key ${filename} is in the wrong directory, it should be moved to keys/`,
+  );
+}
+
+async function check(fn, path) {
+  const files = await globP(path);
+  const keys = await Promise.all(_.map(fn, files));
+  return keys;
+}
+
+async function checkAllKeys() {
+  const keys = await check(validateFile, 'keys/*');
+  console.log(`checked ${keys.length} keys`);
+}
+
+async function checkKeysInWrongDir() {
+  await check(checkNotKey, '*');
+}
+
 async function go() {
   try {
-    const files = await globP('keys/*');
-    const keys = await Promise.all(_.map(validateFile, files));
-    console.log(`checked ${keys.length} keys`);
+    await Promise.all([checkKeysInWrongDir(), checkAllKeys()]);
   } catch (e) {
     console.error(e);
     process.exit(1);
