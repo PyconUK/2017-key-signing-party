@@ -7,7 +7,7 @@ It's a great way to meet new people and get started with personal cryptography. 
 
 ### Joining the Party
 
-The party (episode 2) will be on Saturday the 28th October at 12:30 (Room TBD). To get involved you must submit your key beforehand.
+The party (episode 2) will be on Sunday the 29th October at 12:30 in Room D. To get involved you must submit your key beforehand.
 
 To do so, just create a YAML file in the `keys` directory. The filename should match your GitHub username.
 
