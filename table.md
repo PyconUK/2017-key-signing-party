@@ -10,6 +10,7 @@
 | Grant Stephens        | d660 e9bd a167 3249 9116  307f 821a a11e 0701 d494 |             |             |
 | JamesCampbell         | 9469 bd42 7318 f090 dce4  9aad 80df 1363 9857 b95a |             |             |
 | Kushal Das            | a85f f376 759c 994a 8a11  68d8 d821 9c8c 43f6 c5e1 |             |             |
+| Matthew Power         | ebe0 1e92 829a 1c87 eb6c  88d5 ed0f acaa 1d90 5c21 |             |             |
 | Noelle Aly            | fef5 41b1 af49 3dee ce1d  03b4 b04e a232 0f37 a00c |             |             |
 | Owen Campbell         | 7e9e da05 1c5a 11ea b0ba  0ba1 628f 79bc be9c 2b73 |             |             |
 | Piers Storey          | bfe3 ef73 c3fb bafb 5ba5  f137 8538 9716 43a6 81b7 |             |             |
