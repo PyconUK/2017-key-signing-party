@@ -15,7 +15,6 @@ const previousAttendees = new Set([
   'Jonathan Burman',
   'Luca Valentini',
   'Mark Einon',
-  'Matthew Power',
   'Michael Aquilina',
   'Roger G. Coram',
   'Samuel Reynolds',
