@@ -51,3 +51,111 @@ Install an OpenPGP implementation:
   to a package called `gnupg2`
 * Android: https://www.openkeychain.org/
 * iOS: https://privacyapp.io/
+
+## After the event
+
+You should now have a table with a set of validated fingerprints and ids. You
+can use this to now sign any of those identities that you have personally
+validated.
+
+This guide is written assuming you have `gpg2` installed as `gpg` if any of
+these commands fail, you can try using `gpg2` instead.
+
+### The table
+
+An example of a filled in table, noting validated fingerprints:
+
+| name                  | fingerprint                  | fp verified | id verified |
+| --------------------- | ---------------------------- | ----------- | ----------- |
+| Elizabeth Mathis      | aaaa aaaa aaaa aaaa aaaa ... | no          | n/a         |
+| Kimberly Duncan       | bbbb bbbb bbbb bbbb bbbb ... | yes         | yes         |
+| Amy Lambert           | cccc cccc cccc cccc cccc ... | yes         | no          |
+| Bill North            | dddd dddd dddd dddd dddd ... | yes         | William     |
+
+### Anatomy of a PGP identity.
+
+PGP identities are RFC2822 email address headers, they include a name, an
+optional comment and a mail address:
+
+```
+John Smith (this is a test) tagrain@example.com
+└────┬───┘ └──────┬───────┘ └────────┬────────┘
+    name       comment             mail
+```
+
+### Importing the keys.
+
+I've includes a file in this repository `./keys.asc` that contains a dump of
+every key that was submitted to this repository over the course of PyCon UK.
+Do not sign every one of these keys: some of them you may have validated, some
+of them you may not have. Only sign the keys with fingerprints that you have
+personally validated.
+
+To import the keys on the command line run:
+
+```
+gpg --import path/to/keys.asc
+```
+
+### Sigining the keys.
+
+For each of the fingerprints you have validated run:
+
+```
+gpg --sign-key --ask-cert-level --ask-cert-expire <fingerprint>
+```
+
+### Choosing a certification level.
+
+You will be given the option to choose a "certification" level this is a value
+that you should personally choose:
+
+For example:
+
+* if you have marked a fingerprint as not `fp verified` do not sign.
+* If you have marked a fingerprint as `id verified` and you are very sure of
+  this person's identity pick 3 (I have done very careful checking).
+* If you have marked a fingerprint as not `id verified` then you may want to
+  choose 2 (I have done casual checking), Unless you feel that person has
+  sufficiently convinced you of their identity using other means, then you may
+  wish to choose 3 (I have done very careful checking) anyway.
+* If you have added extra notes, eg this person claims to be called "Bill North"
+  but their ID claimed that they are "William North" you will have to make your
+  own judgment call on which certification level to assign.
+
+If you feel you want to mark every fingerprint as 3 or 2 that's totally up to
+you. The certification level should be up to your own judgment and your own
+trust in your ability to carefully validate fingerprints and identities.
+
+### Sending your signature to the key owners
+
+Debian signing guidlines recommend encrypting your signature and sending it
+on a case by case basis to each participant:
+
+```
+gpg --armor --export <fingerprint> | gpg --encrypt -r <fingerprint> --armor --output <fingerprint>-signed.asc 
+```
+
+Another easier option is to run:
+
+```
+gpg --send-keys <fingerprint>
+```
+
+for each fingerprint of the keys that you have signed.
+
+Unless the person you are signing has specifically requested that you send
+the signature in a specific way, you are free to choose the method.
+
+
+### See what happened
+
+If you periodically run:
+
+```
+gpg --recv-keys
+```
+
+Or search for your own key on a keyserver, you will be able to see the
+signatures you have made and those that others have made in an ever expanding
+web of trust!
